@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duplicate Cars — Hot Wheels Garage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="menu-bar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Trade &amp; Duplicate Box</h1>
+        <p class="page-subtitle">Cars where you own 2 or more copies — ready for trades, wheel swaps, or customs.</p>
+      </div>
+    </div>
+
+    <div class="search-controls-row">
+      <div class="search-wrapper">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search duplicates by name, series, HW#, or color...">
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px;">
+        <label for="groupSelect" style="font-size:0.85rem; font-weight:600; color:var(--text-secondary);">Group By:</label>
+        <select id="groupSelect" class="select-btn">
+          <option value="year_sort">By Year</option>
+          <option value="case">Case</option>
+          <option value="series">Series</option>
+          <option value="alphabetic">Alphabetical (Name)</option>
+          <option value="no_filter">All Duplicates</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="duplicatesContainer" class="groups-stack"></div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="nav.js"></script>
+  <script src="duplicates.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hot Wheels Garage — Case Finder & Collection</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <nav class="menu-bar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Hot Wheels Case Finder</h1>
+        <p class="page-subtitle">Search mainline cases, Treasure Hunts, Super THs, and track your garage.</p>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button id="quickAddCarRedirect" class="action-btn" onclick="window.location.href='admin-cars.html'">+ Add New Car to DB</button>
+      </div>
+    </div>
+
+    <div class="stats-strip" id="dashboardStats">
+      <div class="stat-card">
+        <span class="stat-label">Catalog Cars</span>
+        <span class="stat-value" id="statTotalDb">—</span>
+      </div>
+      <div class="stat-card accent-emerald">
+        <span class="stat-label">Owned Cars</span>
+        <span class="stat-value" id="statOwned">0</span>
+      </div>
+      <div class="stat-card accent-orange">
+        <span class="stat-label">Wanted List</span>
+        <span class="stat-value" id="statWanted">0</span>
+      </div>
+      <div class="stat-card accent-gold">
+        <span class="stat-label">TH / STH Owned</span>
+        <span class="stat-value" id="statHunts">0</span>
+      </div>
+    </div>
+
+    <div class="search-controls-row">
+      <div class="search-wrapper">
+        <input type="text" id="searchBar" placeholder="Search model name, series, HW#, color (or s-series, c-A)...">
+        <span id="clearSearch" class="clear-btn">&times;</span>
+      </div>
+
+      <label class="checkbox-pill">
+        <input type="checkbox" id="searchOldCases">
+        <span>Include Pre-2024 Cases</span>
+      </label>
+
+      <button id="resetAllFiltersBtn" class="action-btn secondary" type="button" style="display:none;">Reset Filters</button>
+    </div>
+
+    <div id="filterContainer">
+      <div class="filter-header-row">
+        <h3>Filter Catalog</h3>
+        <span id="resultsCountLabel" style="font-size:0.85rem; color:var(--text-secondary); font-weight:600;"></span>
+      </div>
+
+      <div class="FilterBox">
+        <div id="yearFilterContainer" class="custom-dropdown-container">
+          <label class="dropdown-label" for="toggle-year">Year</label>
+          <input type="checkbox" id="toggle-year" class="dropdown-toggle" hidden>
+          <div class="dropdown-content"></div>
+        </div>
+
+        <div id="caseLetterFilterContainer" class="custom-dropdown-container">
+          <label class="dropdown-label" for="toggle-case">Case</label>
+          <input type="checkbox" id="toggle-case" class="dropdown-toggle" hidden>
+          <div class="dropdown-content"></div>
+        </div>
+
+        <div id="seriesFilterContainer" class="custom-dropdown-container">
+          <label class="dropdown-label" for="toggle-series">Series</label>
+          <input type="checkbox" id="toggle-series" class="dropdown-toggle" hidden>
+          <div class="dropdown-content"></div>
+        </div>
+
+        <div id="hwNumberFilterContainer" class="custom-dropdown-container">
+          <label class="dropdown-label" for="toggle-hwnum">HW#</label>
+          <input type="checkbox" id="toggle-hwnum" class="dropdown-toggle" hidden>
+          <div class="dropdown-content"></div>
+        </div>
+
+        <div id="colorFilterContainer" class="custom-dropdown-container">
+          <label class="dropdown-label" for="toggle-color">Color</label>
+          <input type="checkbox" id="toggle-color" class="dropdown-toggle" hidden>
+          <div class="dropdown-content"></div>
+        </div>
+      </div>
+
+      <div class="filter-toggles-row">
+        <label class="checkbox-pill">
+          <input type="checkbox" id="unownedOnlyCheckbox">
+          <span>Unowned Only</span>
+        </label>
+        <label class="checkbox-pill">
+          <input type="checkbox" id="thCheckbox">
+          <span>Treasure Hunt (TH)</span>
+        </label>
+        <label class="checkbox-pill">
+          <input type="checkbox" id="sthCheckbox">
+          <span>Super TH (STH)</span>
+        </label>
+        <div id="dudsCheckboxWrapper" style="display: none;">
+          <label class="checkbox-pill">
+            <input type="checkbox" id="showDudsCheckbox">
+            <span>Show Regular Duds</span>
+          </label>
+        </div>
+      </div>
+
+      <div id="activeFiltersBar" class="filter-chips-display"></div>
+    </div>
+
+    <div id="results" class="results-grid"></div>
+
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span id="popupClose" class="popup-close">&times;</span>
+        <div id="details"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="nav.js"></script>
+  <script src="script.js?v=20"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

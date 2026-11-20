@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanted Cars — Hot Wheels Garage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="menu-bar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Wanted Hunting List</h1>
+        <p class="page-subtitle">Cars on your radar — mark them Owned the moment you find them on the pegs.</p>
+      </div>
+    </div>
+
+    <div class="search-controls-row">
+      <div class="search-wrapper">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search wanted cars by name, series, HW#, or color...">
+        <span id="clearSearch" class="clear-btn">&times;</span>
+      </div>
+    </div>
+
+    <div id="wantedList" class="results-grid"></div>
+
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span id="popupClose" class="popup-close">&times;</span>
+        <div id="details"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="nav.js"></script>
+  <script src="popup.js"></script>
+  <script src="wanted.js"></script>
+</body>
+</html>

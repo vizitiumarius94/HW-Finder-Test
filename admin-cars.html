@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garage Database Studio — Add & Edit Cars</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="menu-bar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Garage Database Studio</h1>
+        <p class="page-subtitle">Add new cars, create new years/cases, set TH/STH, test live in your browser, and export <code>data.json</code> for GitHub.</p>
+      </div>
+      <div id="adminTopActions" style="display:none; gap:10px; flex-wrap:wrap;">
+        <button id="exportBtnAdmin" class="action-btn" type="button">⬇ Download data.json</button>
+        <button id="resetOverrideBtn" class="action-btn danger" type="button" title="Discard local browser edits and reload GitHub data.json">Reset Local Edits</button>
+      </div>
+    </div>
+
+    <div id="loginView" class="admin-panel-card" style="max-width: 480px; margin: 24px auto;">
+      <h2 style="text-align:center;">Studio Unlock</h2>
+      <p style="text-align:center; color:var(--text-secondary); font-size:0.9rem;">Default credentials: <code>admin</code> / <code>admin</code> (or click Quick Unlock below).</p>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="form-group">
+          <label>Username</label>
+          <input id="adminUser" type="text" value="admin" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="adminPass" type="password" value="admin" />
+        </div>
+
+        <button id="loginBtn" class="action-btn" type="button">Unlock Database Studio</button>
+        <div id="loginError" style="color:#fda4af; display:none; text-align:center; font-weight:600;"></div>
+      </div>
+    </div>
+
+    <div id="adminView" style="display:none;">
+      <!-- LIVE STATUS BANNER -->
+      <div id="overrideStatusBanner" class="admin-panel-card" style="border-color: rgba(16, 185, 129, 0.45); background: rgba(16, 185, 129, 0.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div>
+          <strong style="color:#6ee7b7;">● Live Browser Sync Active:</strong>
+          <span style="color:var(--text-secondary); font-size:0.9rem;">Every car you add or edit is saved automatically in your browser so you can search &amp; mark it Owned immediately. Click <strong>Download data.json</strong> when ready to push to GitHub.</span>
+        </div>
+      </div>
+
+      <!-- STEP 1: QUICK ADD NEW CAR FORM -->
+      <div class="admin-panel-card" style="border-color: rgba(255, 85, 0, 0.4);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <h2 style="margin:0;">+ Quick Add Car to Database</h2>
+          <span style="font-size:0.82rem; color:var(--text-secondary);">Creates the Year &amp; Case automatically if they don't exist yet</span>
+        </div>
+
+        <form id="quickAddForm" class="admin-grid-form">
+          <div class="form-group">
+            <label>Year *</label>
+            <input id="newCarYear" type="text" placeholder="e.g. 2026 or 2027" required />
+          </div>
+          <div class="form-group">
+            <label>Case Letter *</label>
+            <input id="newCarCase" type="text" placeholder="e.g. A, B, C, H..." maxlength="4" required />
+          </div>
+          <div class="form-group">
+            <label>Car Name *</label>
+            <input id="newCarName" type="text" placeholder="e.g. '71 Datsun 510" required />
+          </div>
+          <div class="form-group">
+            <label>Series</label>
+            <input id="newCarSeries" type="text" placeholder="e.g. HW J-Imports" />
+          </div>
+          <div class="form-group">
+            <label>Series # (e.g. 3/10)</label>
+            <input id="newCarSeriesNum" type="text" placeholder="e.g. 3/10" />
+          </div>
+          <div class="form-group">
+            <label>HW Number (e.g. 142)</label>
+            <input id="newCarHwNum" type="text" placeholder="e.g. 142" />
+          </div>
+          <div class="form-group">
+            <label>Color</label>
+            <input id="newCarColor" type="text" placeholder="e.g. Spectraflame Red" />
+          </div>
+          <div class="form-group">
+            <label>Hunt Type</label>
+            <select id="newCarHuntType" class="select-btn">
+              <option value="none">Regular Mainline</option>
+              <option value="th">Treasure Hunt (TH)</option>
+              <option value="sth">Super Treasure Hunt (STH)</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Car Photo (Upload Image OR Paste Image Path / URL)</label>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+              <input id="newCarImagePath" type="text" placeholder="images/MyCar2026A.jpg (or leave blank to use uploaded file)" style="flex:1 1 260px;" />
+              <input id="newCarImageFile" type="file" accept="image/*" style="flex:1 1 220px; color:var(--text-secondary);" />
+            </div>
+          </div>
+          <div style="grid-column: 1 / -1; display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
+            <button type="submit" class="action-btn">+ Add Car to Database Now</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 2: BROWSE & EDIT EXISTING YEAR / CASE -->
+      <div class="admin-panel-card">
+        <h2>Browse &amp; Edit Existing Cases</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin-bottom: 16px;">
+          <div class="form-group" style="flex: 1 1 180px;">
+            <label>Year</label>
+            <select id="yearSelect" class="select-btn"></select>
+          </div>
+
+          <div class="form-group" style="flex: 1 1 180px;">
+            <label>Case Letter</label>
+            <select id="caseSelect" class="select-btn"></select>
+          </div>
+
+          <div class="form-group" style="flex: 2 1 260px;">
+            <label>Filter cars in this case</label>
+            <input id="caseSearch" type="text" placeholder="Search name, HW#, color, series..." />
+          </div>
+        </div>
+
+        <div id="thSthCard" style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:16px; margin-bottom: 18px;">
+          <h3 style="margin-top:0; font-size:1rem; text-transform:uppercase; color:var(--hw-gold);">Case Treasure Hunt &amp; Super TH Assignment</h3>
+          <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;">
+            <div class="form-group" style="flex:1 1 240px;">
+              <label>Treasure Hunt (TH)</label>
+              <select id="thSelect" class="select-btn"></select>
+              <img id="thPreview" src="images/images-coming-soon.png" alt="TH preview" style="width:100%; height:80px; object-fit:contain; border-radius:8px; background:#fff; padding:4px; margin-top:6px;" />
+            </div>
+            <div class="form-group" style="flex:1 1 240px;">
+              <label>Super Treasure Hunt (STH)</label>
+              <select id="sthSelect" class="select-btn"></select>
+              <img id="sthPreview" src="images/images-coming-soon.png" alt="STH preview" style="width:100%; height:80px; object-fit:contain; border-radius:8px; background:#fff; padding:4px; margin-top:6px;" />
+            </div>
+            <button id="thSthSave" class="action-btn blue" type="button">Save TH / STH</button>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom: 12px;">
+          <h3 id="caseCarsCountHeading" style="margin:0; font-size:1.05rem;">Cars in Case</h3>
+        </div>
+
+        <div id="carsList" style="display:flex; flex-direction:column; gap:12px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="nav.js"></script>
+  <script src="admin-cars.js"></script>
+</body>
+</html>

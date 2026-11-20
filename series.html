@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Series Completion — Hot Wheels Garage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="menu-bar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Series Collection Tracker</h1>
+        <p class="page-subtitle">Track completion progress across mini-collections and sub-series.</p>
+      </div>
+    </div>
+
+    <div class="search-controls-row">
+      <div class="search-wrapper">
+        <input type="text" id="seriesSearchBar" class="search-bar" placeholder="Filter series by name...">
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px;">
+        <label for="yearSelect" style="font-size:0.85rem; font-weight:600; color:var(--text-secondary);">Year:</label>
+        <select id="yearSelect" class="select-btn">
+          <option value="all">All Years</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="seriesList" class="results-grid"></div>
+  </div>
+
+  <div id="seriesPopup" class="popup">
+    <div class="popup-content">
+      <span id="seriesPopupClose" class="popup-close">&times;</span>
+      <h2 id="seriesPopupTitle"></h2>
+      <div id="seriesCarsGrid" class="results-grid"></div>
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="nav.js"></script>
+  <script src="series.js"></script>
+</body>
+</html>
